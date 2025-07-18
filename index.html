@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ko Khat Money Transfer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Padauk:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2ecc71;
+            --accent-color: #f39c12;
+            --dark-color: #2c3e50;
+            --text-color: #34495e;
+            --light-text: #7f8c8d;
+            --bg-color: #ecf0f1;
+            --card-bg: #FFFFFF;
+            --border-color: #bdc3c7;
+            --shadow: 0 10px 30px rgba(0,0,0,0.08);
+            --thb-color: #e74c3c;
+            --mmk-color: #27ae60;
+            --success-color: #2ecc71;
+            --facebook-color: #3b5998;
+        }
+        
+        body {
+            font-family: 'Padauk', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 0;
+            line-height: 1.6;
+        }
+        
+        /* Running Text Marquee */
+        .marquee-container {
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 15px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            border-radius: 8px;
+            margin: 10px;
+        }
+        
+        .marquee {
+            color: white;
+            padding: 14px 0;
+            white-space: nowrap;
+            overflow: hidden;
+            box-sizing: border-box;
+            font-size: 14px;
+            font-weight: 500;
+            position: relative;
+        }
+        
+        .marquee::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 50px;
+            height: 100%;
+            background: linear-gradient(90deg, rgba(0,0,0,0.2), transparent);
+            z-index: 1;
+        }
+        
+        .marquee span {
+            display: inline-block;
+            padding-left: 100%;
+            animation: marquee 15s linear infinite;
+        }
+        
+        @keyframes marquee {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(-100%, 0); }
+        }
+        
+        /* Header */
+        .header {
+            text-align: center;
+            padding: 30px 15px 20px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border-radius: 0 0 25px 25px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, 
+                var(--secondary-color), var(--primary-color), var(--accent-color));
+            animation: rainbow 8s linear infinite;
+            background-size: 300% 300%;
+        }
+
+        @keyframes rainbow {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+        
+        .header h1 {
+            margin: 0;
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .header .tagline {
+            font-size: 14px;
+            opacity: 0.9;
+            margin-top: 5px;
+            font-weight: 400;
+        }
+        
+        /* Currency Images */
+        .currency-images {
+            display: flex;
+            justify-content: center;
+            margin: 25px 15px 15px;
+        }
+
+        .currency-image {
+            width: 60%;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border: 3px solid white;
+        }
+
+        .currency-image:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+        }
+        
+        /* Public Messages */
+        .public-messages {
+            background-color: var(--card-bg);
+            border-radius: 18px;
+            padding: 20px;
+            margin: 0 15px 25px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .public-messages::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--primary-color), var(--secondary-color));
+        }
+        
+        .public-messages h3 {
+            color: var(--primary-color);
+            margin-top: 0;
+            margin-bottom: 15px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: 600;
+            padding-bottom: 8px;
+            position: relative;
+        }
+        
+        .public-messages h3::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 25%;
+            width: 50%;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            border-radius: 3px;
+        }
+        
+        .message-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .message-list li {
+            padding: 10px 0;
+            border-bottom: 1px dashed var(--border-color);
+            display: flex;
+            align-items: flex-start;
+            transition: all 0.2s ease;
+        }
+        
+        .message-list li:hover {
+            transform: translateX(5px);
+        }
+        
+        .message-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .message-list i {
+            color: var(--secondary-color);
+            margin-right: 12px;
+            font-size: 16px;
+            margin-top: 3px;
+        }
+        
+        .message-list span {
+            flex: 1;
+            font-size: 14px;
+        }
+        
+        /* Converter cards */
+        .converter-container {
+            padding: 0 15px;
+        }
+        
+        .converter-card {
+            background-color: var(--card-bg);
+            border-radius: 18px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.5s forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .converter-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+        }
+
+        .converter-card::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--thb-color), var(--mmk-color));
+            animation: rainbow 6s linear infinite;
+            background-size: 200% 200%;
+        }
+
+        #mmk-card::after {
+            background: linear-gradient(90deg, var(--mmk-color), var(--thb-color));
+        }
+        
+        .converter-title {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 15px;
+            font-weight: 600;
+            color: var(--primary-color);
+            font-size: 20px;
+        }
+        
+        .converter-title i {
+            font-size: 28px;
+        }
+
+        .exchange-icon {
+            font-size: 22px;
+            color: var(--secondary-color);
+            margin: 0 8px;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        .currency-input {
+            margin-bottom: 20px;
+        }
+        
+        .input-label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 15px;
+            color: var(--light-text);
+            font-weight: 500;
+        }
+        
+        .input-group {
+            display: flex;
+            align-items: center;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            overflow: hidden;
+            background: white;
+            transition: all 0.3s ease;
+        }
+        
+        .input-group:focus-within {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px rgba(0,206,201,0.2);
+        }
+        
+        .flag {
+            padding: 0 15px;
+            font-size: 30px;
+            background: rgba(0,0,0,0.02);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            min-width: 90px;
+        }
+        
+        .currency-code {
+            font-weight: 700;
+            color: var(--primary-color);
+            font-size: 17px;
+        }
+        
+        input {
+            flex: 1;
+            padding: 16px;
+            border: none;
+            font-size: 18px;
+            outline: none;
+            font-weight: 500;
+            color: var(--text-color);
+            background: transparent;
+        }
+        
+        input::placeholder {
+            color: #B2BEC3;
+            font-weight: 400;
+        }
+        
+        .result-display {
+            text-align: center;
+            margin: 30px 0;
+            padding: 25px 20px;
+            background: linear-gradient(135deg, rgba(108, 92, 231, 0.05), rgba(253, 121, 168, 0.05));
+            border-radius: 15px;
+            border: 1px solid rgba(0,0,0,0.05);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .result-display::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+        }
+        
+        .amount {
+            font-size: 36px;
+            font-weight: 700;
+            margin: 10px 0;
+            color: var(--primary-color);
+            letter-spacing: 0.5px;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        
+        .currency {
+            font-size: 16px;
+            color: var(--light-text);
+            font-weight: 500;
+        }
+        
+        .equal-sign {
+            font-size: 30px;
+            margin: 15px 0;
+            color: var(--light-text);
+            font-weight: bold;
+            position: relative;
+        }
+        
+        .equal-sign::before, .equal-sign::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            width: 30px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--border-color));
+        }
+        
+        .equal-sign::before {
+            left: -40px;
+        }
+        
+        .equal-sign::after {
+            right: -40px;
+            background: linear-gradient(90deg, var(--border-color), transparent);
+        }
+        
+        .rate-info {
+            margin: 15px 0 5px;
+            padding: 15px;
+            background: linear-gradient(135deg, rgba(0, 184, 148, 0.1), rgba(0, 184, 148, 0.05));
+            border-radius: 12px;
+            font-size: 15px;
+            text-align: center;
+            color: var(--success-color);
+            border-left: 5px solid var(--success-color);
+            font-weight: 500;
+        }
+        
+        .timestamp {
+            font-size: 13px;
+            color: var(--light-text);
+            text-align: center;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+        
+        /* Exchange Animation */
+        .exchange-animation {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 20px 0;
+            position: relative;
+            height: 60px;
+        }
+        
+        .money-bag {
+            width: 50px;
+            height: 50px;
+            background-color: var(--success-color);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 20px;
+            position: absolute;
+            z-index: 2;
+            animation: moveMoney 2s infinite;
+        }
+        
+        @keyframes moveMoney {
+            0%, 100% { transform: translateX(0) scale(1); }
+            50% { transform: translateX(100px) scale(1.1); }
+        }
+        
+        .money-bag:nth-child(2) {
+            background-color: var(--thb-color);
+            animation-delay: 0.5s;
+            animation-direction: reverse;
+        }
+        
+        .exchange-arrow {
+            position: absolute;
+            font-size: 30px;
+            color: var(--accent-color);
+            animation: bounce 1.5s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 30px 15px;
+            font-size: 15px;
+            color: var(--light-text);
+            border-top: 1px solid var(--border-color);
+            background-color: var(--card-bg);
+            margin-top: 10px;
+            border-radius: 25px 25px 0 0;
+            box-shadow: 0 -5px 20px rgba(0,0,0,0.03);
+        }
+        
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-bottom: 25px;
+        }
+        
+        .contact-info a {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+            padding: 8px 15px;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+        }
+        
+        .contact-info a:hover {
+            transform: translateY(-3px);
+        }
+        
+        .contact-info i {
+            font-size: 20px;
+        }
+        
+        .copyright {
+            font-size: 13px;
+            opacity: 0.8;
+            margin-top: 10px;
+        }
+        
+        /* Floating action buttons */
+        .fab {
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            z-index: 100;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .fab:hover {
+            transform: scale(1.1) rotate(10deg);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+        }
+        
+        .fab-phone {
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        }
+        
+        .fab-facebook {
+            bottom: 30px;
+            right: 110px;
+            background: linear-gradient(135deg, var(--facebook-color), #3b5998));
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 24px;
+            }
+            
+            .converter-title {
+                font-size: 18px;
+            }
+            
+            .amount {
+                font-size: 30px;
+            }
+            
+            .contact-info {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .fab-phone {
+                bottom: 30px;
+                right: 30px;
+            }
+            
+            .fab-facebook {
+                bottom: 30px;
+                right: 30px;
+                margin-bottom: 80px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Running Text Marquee -->
+    <div class="marquee-container">
+        <div class="marquee">
+            <span>📢 Ko Khat Money Transfer မှ ကြိုဆိုပါသည် | အကောင်းဆုံးဈေးနှုန်းများ | ၂၄နာရီ အချိန်မရွေး | THB/MMK ငွေလဲလှယ်ရန် 📢</span>
+        </div>
+    </div>
+    
+    <!-- Header -->
+    <div class="header">
+        <h1>Ko Khant Money Transfer</h1>
+        <div class="tagline">မြန်ဆန်စိတ်ချရသော ငွေလဲလှယ်ဝန်ဆောင်မှု</div>
+        
+        <!-- Currency Images -->
+        <div class="currency-images">
+            <img src="https://raw.githubusercontent.com/Khinnainglin441/kmoney/main/image/k1.png" alt="ထိုင်းဘတ်" class="currency-image">
+        </div>
+    </div>
+    
+    <!-- Public Messages -->
+    <div class="public-messages">
+        <h3 id="public-message-title">ထိုင်း-မြန်မာ ငွေလဲလှယ်မှု ဈေးနှုန်းများ</h3>
+        <ul class="message-list">
+            <li><i class="fas fa-bullhorn"></i> <span id="message1">ယနေ့ဈေးနှုန်း - <span class="dynamic-rate">740</span> ဘတ် = <span class="dynamic-rate">100,000</span> ကျပ် 🥰</span></li>
+            <li><i class="fas fa-bullhorn"></i> <span id="message2">၁သိန်းအောက်အတွက် ဝန်ဆောင်ခ ၄ဘတ် 🥰</span></li>
+            <li><i class="fas fa-bullhorn"></i> <span id="message3">၁သိန်းအထက်အတွက် ဝန်ဆောင်ခ မရှိပါ 🥰</span></li>
+            <li><i class="fas fa-bullhorn"></i> <span id="message4">၁၀သိန်းအထက်အတွက် အထူးလျှော့ဈေး 🥰</span></li>
+            <li><i class="fas fa-bullhorn"></i> <span id="message5">Wavepay ဖြင့်လဲလှယ်ပါက ၁သိန်းလျှင် ၁၀ဘတ်သာ 🥰</span></li>
+            <li><i class="fas fa-bullhorn"></i> <span id="message5">အများစုဖြင့်လဲလှယ်ပါက အထူးလျှော့ဈေး 🥰</span></li>
+        </ul>
+    </div>
+    
+    <!-- Main Content -->
+    <div class="converter-container">
+        <!-- THB to MMK Converter -->
+        <div class="converter-card" id="thb-card">
+            <div class="converter-title">
+                <i class="flag-icon flag-icon-th"></i>
+                <span id="thb-title">ကျပ်ပေး ⇄ ဘတ်ယူ</span>
+                <i class="flag-icon flag-icon-mm"></i>
+            </div>
+            
+            <div class="rate-info" id="thb-rate-info">
+                လက်ရှိဈေးနှုန်း: <span id="thb-rate-display"></span> ဘတ် = <span id="mmk-rate-display"></span> ကျပ်
+            </div>
+            
+            <div class="timestamp" id="thb-timestamp">
+                <span id="last-updated">နောက်ဆုံးအချိန်</span>
+            </div>
+            
+            <div class="currency-input">
+                <div class="input-label" id="thb-label">ထိုင်းဘတ် (THB)</div>
+                <div class="input-group">
+                    <span class="flag">
+                        <i class="flag-icon flag-icon-th"></i>
+                        <span class="currency-code">THB</span>
+                    </span>
+                    <input type="number" id="thb-amount" placeholder="ပမာဏထည့်ပါ" oninput="convertThbToMmk()">
+                </div>
+            </div>
+            
+            <div class="exchange-animation">
+                <div class="money-bag"><i class="fas fa-money-bill-wave"></i></div>
+                <div class="exchange-arrow"><i class="fas fa-exchange-alt"></i></div>
+                <div class="money-bag"><i class="fas fa-coins"></i></div>
+            </div>
+            
+            <div class="result-display">
+                <div class="amount" id="thb-display">0</div>
+                <div class="currency" id="thb-currency-label">ထိုင်းဘတ်</div>
+                <div class="equal-sign">=</div>
+                <div class="amount" id="mmk-display">0</div>
+                <div class="currency" id="mmk-currency-label">မြန်မာကျပ်</div>
+            </div>
+            
+            <div class="currency-input">
+                <div class="input-label" id="mmk-result-label">မြန်မာကျပ် (MMK)</div>
+                <div class="input-group">
+                    <span class="flag">
+                        <i class="flag-icon flag-icon-mm"></i>
+                        <span class="currency-code">MMK</span>
+                    </span>
+                    <input type="number" id="mmk-result" placeholder="ရလဒ်" readonly>
+                </div>
+            </div>
+        </div>
+        
+        <!-- MMK to THB Converter -->
+        <div class="converter-card" id="mmk-card">
+            <div class="converter-title">
+                <i class="flag-icon flag-icon-mm"></i>
+                <span id="mmk-title">ကျပ်ပေး ⇄ ဘတ်ယူ</span>
+                <i class="flag-icon flag-icon-th"></i>
+            </div>
+            
+            <div class="rate-info" id="mmk-rate-info">
+                လက်ရှိဈေးနှုန်း: <span id="mmk-rate-display2"></span> ကျပ် = <span id="thb-rate-display2"></span> ဘတ်
+            </div>
+            
+            <div class="timestamp" id="mmk-timestamp">
+                <span id="last-updated2">နောက်ဆုံးအချိန်</span>
+            </div>
+            
+            <div class="currency-input">
+                <div class="input-label" id="mmk-input-label">မြန်မာကျပ် (MMK)</div>
+                <div class="input-group">
+                    <span class="flag">
+                        <i class="flag-icon flag-icon-mm"></i>
+                        <span class="currency-code">MMK</span>
+                    </span>
+                    <input type="number" id="mmk-amount" placeholder="ပမာဏထည့်ပါ" oninput="convertMmkToThb()">
+                </div>
+            </div>
+            
+            <div class="exchange-animation">
+                <div class="money-bag"><i class="fas fa-coins"></i></div>
+                <div class="exchange-arrow"><i class="fas fa-exchange-alt"></i></div>
+                <div class="money-bag"><i class="fas fa-money-bill-wave"></i></div>
+            </div>
+            
+            <div class="result-display">
+                <div class="amount" id="mmk-display-input">0</div>
+                <div class="currency" id="mmk-input-currency-label">မြန်မာကျပ်</div>
+                <div class="equal-sign">=</div>
+                <div class="amount" id="thb-display-result">0</div>
+                <div class="currency" id="thb-result-currency-label">ထိုင်းဘတ်</div>
+            </div>
+            
+            <div class="currency-input">
+                <div class="input-label" id="thb-result-label">ထိုင်းဘတ် (THB)</div>
+                <div class="input-group">
+                    <span class="flag">
+                        <i class="flag-icon flag-icon-th"></i>
+                        <span class="currency-code">THB</span>
+                    </span>
+                    <input type="number" id="thb-result" placeholder="ရလဒ်" readonly>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <div class="footer">
+        <div class="contact-info">
+            <a href="https://www.facebook.com/share/1PdcDsqwLu/" target="_blank" style="background-color: var(--facebook-color);">
+                <i class="fab fa-facebook"></i> <span id="facebook-text">ဖေ့စ်ဘုတ်</span>
+            </a>
+            <a href="tel:0942956530" style="background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));">
+                <i class="fas fa-phone"></i> <span id="phone-text">၀၉-၄၂၉၅၆၅၃၀</span>
+            </a>
+        </div>
+        <div class="copyright" id="copyright-text">
+            © ၂၀၂၅ Ko Khat Money Transfer။ အခွင့်အရေးအားလုံးရယူထားသည်။
+        </div>
+    </div>
+
+    <!-- Floating Action Buttons -->
+    <div class="fab fab-phone" onclick="window.location.href='tel:0942956530'">
+        <i class="fas fa-phone"></i>
+    </div>
+    
+    <div class="fab fab-facebook" onclick="window.open('https://www.facebook.com/share/1PdcDsqwLu/', '_blank')">
+        <i class="fab fa-facebook-f"></i>
+    </div>
+
+    <script>
+        // Exchange rates - Only change these values to update the entire app
+        const rates = {
+            thbToMmk: {
+                thb: 740,
+                mmk: 100000
+            },
+            mmkToThb: {
+                mmk: 102000,
+                thb: 740
+            }
+        };
+        
+        // Format number with commas
+        function formatNumberWithCommas(num) {
+            return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+        
+        // Update all dynamic rate displays
+        function updateAllRateDisplays() {
+            // Update converter rate displays
+            document.getElementById('thb-rate-display').textContent = rates.thbToMmk.thb;
+            document.getElementById('mmk-rate-display').textContent = formatNumberWithCommas(rates.thbToMmk.mmk);
+            document.getElementById('mmk-rate-display2').textContent = formatNumberWithCommas(rates.mmkToThb.mmk);
+            document.getElementById('thb-rate-display2').textContent = rates.mmkToThb.thb;
+            
+            // Update public message rates
+            document.querySelectorAll('.dynamic-rate').forEach((el, index) => {
+                if (index === 0) {
+                    el.textContent = rates.thbToMmk.thb;
+                } else if (index === 1) {
+                    el.textContent = formatNumberWithCommas(rates.thbToMmk.mmk);
+                }
+            });
+        }
+        
+        // Initialize
+        window.onload = function() {
+            // Set default values based on rates
+            document.getElementById('thb-amount').value = rates.thbToMmk.thb;
+            document.getElementById('mmk-amount').value = rates.mmkToThb.mmk;
+            
+            updateTimestamp();
+            updateAllRateDisplays();
+            convertThbToMmk();
+            convertMmkToThb();
+            
+            // Add animation to cards on load
+            const cards = document.querySelectorAll('.converter-card');
+            cards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, index * 150);
+            });
+        };
+        
+        function updateTimestamp() {
+            const now = new Date();
+            const options = { 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            };
+            const timeString = now.toLocaleDateString('my-MM', options);
+            
+            document.getElementById('last-updated').textContent = "နောက်ဆုံးအချိန်: " + timeString;
+            document.getElementById('last-updated2').textContent = "နောက်ဆုံးအချိန်: " + timeString;
+        }
+        
+        function convertThbToMmk() {
+            const thbAmount = parseFloat(document.getElementById('thb-amount').value) || 0;
+            const rate = rates.thbToMmk.mmk / rates.thbToMmk.thb;
+            const mmkAmount = thbAmount * rate;
+            
+            // Update results
+            document.getElementById('mmk-result').value = Math.round(mmkAmount);
+            document.getElementById('thb-display').textContent = thbAmount;
+            document.getElementById('mmk-display').textContent = formatNumberWithCommas(Math.round(mmkAmount));
+            
+            updateTimestamp();
+        }
+        
+        function convertMmkToThb() {
+            const mmkAmount = parseFloat(document.getElementById('mmk-amount').value) || 0;
+            const rate = rates.mmkToThb.thb / rates.mmkToThb.mmk;
+            const thbAmount = mmkAmount * rate;
+            
+            // Update results
+            document.getElementById('thb-result').value = thbAmount.toFixed(2);
+            document.getElementById('mmk-display-input').textContent = formatNumberWithCommas(mmkAmount);
+            document.getElementById('thb-display-result').textContent = thbAmount.toFixed(2);
+            
+            updateTimestamp();
+        }
+        
+        // Function to update rates (can be called externally if needed)
+        function updateRates(newRates) {
+            rates.thbToMmk = newRates.thbToMmk;
+            rates.mmkToThb = newRates.mmkToThb;
+            updateAllRateDisplays();
+            convertThbToMmk();
+            convertMmkToThb();
+        }
+    </script>
+</body>
+</html>
